@@ -104,6 +104,7 @@ def write_crewai_script(agents_data, file_path, ollama_openhermes, search_tool):
 def main():
     try:
         ollama = initialize_ollama()
+        project_name= input("Please specify the project name: ")
         overall_goal = input("Please specify the overall goal: ")
         delimiter = input("Please specify the delimiter used in the CSV data: ")
         response = get_agent_data(ollama, overall_goal, delimiter)
@@ -114,7 +115,7 @@ def main():
         if not agents_data:
             raise ValueError("No agent data parsed")
 
-        file_path = os.path.join(os.getcwd(), 'crewai-script.py')
+        file_path = os.path.join(os.getcwd(), f'{project_name.replace(" ", "_").lower()}.py')
         write_crewai_script(agents_data, file_path, ollama, DuckDuckGoSearchRun())
 
         print(f"\nScript written to {file_path}")
